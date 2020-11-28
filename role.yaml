@@ -1,0 +1,121 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: ---
+#Metadata: 
+
+#Parameters: 
+
+#Mappings: 
+
+#Conditions: 
+
+Resources: 
+
+  DockerComposeRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: DockerComposeRole
+      AssumeRolePolicyDocument: 
+        Version: "2012-10-17"
+        Statement:
+          - 
+            Action: "sts:AssumeRole"
+            Effect: "Allow"
+            Principal: 
+              AWS:
+                - !Sub "${AWS::AccountId}"
+
+  DockerComposePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: "DockerComposePolicy"
+      Roles:
+        - !Ref DockerComposeRole
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - 
+            Effect: "Allow"
+            Action:
+              - cloudformation:CreateChangeSet
+              - cloudformation:CreateStack
+              - cloudformation:DeleteStack
+              - cloudformation:DescribeStackEvents
+              - cloudformation:DescribeStacks
+              - cloudformation:ListStackResources
+              - ec2:AuthorizeSecurityGroupIngress
+              - ec2:CreateSecurityGroup
+              - ec2:createTags
+              - ec2:DeleteSecurityGroup
+              - ec2:DescribeSecurityGroups
+              - ec2:DescribeSubnets
+              - ec2:DescribeVpcs
+              - ec2:RevokeSecurityGroupIngress
+              - ecs:CreateCluster
+              - ecs:CreateService
+              - ecs:DeleteCluster
+              - ecs:DeleteService
+              - ecs:DeregisterTaskDefinition 
+              - ecs:DescribeClusters
+              - ecs:DescribeServices
+              - ecs:DescribeTasks
+              - ecs:ListAccountSettings
+              - ecs:ListTasks
+              - ecs:RegisterTaskDefinition
+              - elasticfilesystem:CreateAccessPoint
+              - elasticfilesystem:CreateFileSystem
+              - elasticfilesystem:CreateMountTarget
+              - elasticfilesystem:DeleteAccessPoint
+              - elasticfilesystem:DeleteMountTarget 
+              - elasticfilesystem:DescribeAccessPoints
+              - elasticfilesystem:DescribeFileSystemPolicy
+              - elasticfilesystem:DescribeFileSystems
+              - elasticfilesystem:DescribeMountTargets
+              - elasticloadbalancing:AddTags
+              - elasticloadbalancing:CreateListener
+              - elasticloadbalancing:CreateLoadBalancer
+              - elasticloadbalancing:CreateRule
+              - elasticloadbalancing:CreateTargetGroup
+              - elasticloadbalancing:DeleteListener
+              - elasticloadbalancing:DeleteLoadBalancer
+              - elasticloadbalancing:DeleteRule
+              - elasticloadbalancing:DeleteTargetGroup
+              - elasticloadbalancing:DescribeListeners
+              - elasticloadbalancing:DescribeLoadBalancers
+              - elasticloadbalancing:DescribeRules
+              - elasticloadbalancing:DescribeTargetGroups
+              - iam:AttachRolePolicy
+              - iam:CreateRole
+              - iam:DeleteRole
+              - iam:DeleteRolePolicy
+              - iam:DetachRolePolicy
+              - iam:GetRolePolicy
+              - iam:ListRoles
+              - iam:PassRole
+              - iam:PutRolePolicy
+              - iam:TagRole
+              - logs:CreateLogGroup
+              - logs:DeleteLogGroup
+              - logs:DescribeLogGroups
+              - logs:FilterLogEvents
+              - route53:CreateHostedZone
+              - route53:DeleteHostedZone
+              - route53:GetHealthCheck
+              - route53:GetHostedZone
+              - route53:ListHostedZonesByName
+              - servicediscovery:CreatePrivateDnsNamespace
+              - servicediscovery:CreateService
+              - servicediscovery:DeleteNamespace
+              - servicediscovery:DeleteService
+              - servicediscovery:DeregisterInstance
+              - servicediscovery:DiscoverInstances
+              - servicediscovery:GetNamespace
+              - servicediscovery:GetOperation
+              - servicediscovery:GetService
+              - servicediscovery:List*
+              - servicediscovery:ListNamespaces
+              - servicediscovery:ListServices
+              - servicediscovery:RegisterInstance
+              - servicediscovery:TagResource
+              - servicediscovery:UpdateService
+              - sns:ListTopics
+            Resource: "*"
